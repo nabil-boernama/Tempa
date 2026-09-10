@@ -88,3 +88,80 @@ BPS mencatat sekitar 3,5 juta pengangguran dari kalangan Gen Z pada 2025, kelomp
 - **Kelebihan:** Basis data lowongan kerja sangat besar dan memiliki brand kuat di kalangan _fresh graduate_
 - **Kekurangan:** Tidak menyediakan analisis _skill gap_ secara eksplisit dan tidak memiliki sarana simulasi/latihan wawancara
 - **Key Competitive Advantage & Unique Value Tempa:** Tidak hanya berfungsi mencari lowongan, tetapi mendampingi dan mempersiapkan pengguna secara komprehensif agar benar-benar siap dan lolos seleksi kerja.
+
+---
+
+## 5. Perancangan SDLC Produk
+
+### a. Tujuan dari Produk
+
+Menempa mahasiswa dan/atau fresh graduate di Indonesia agar siap menghadapi seleksi
+magang/kerja, dengan mengidentifikasi kesenjangan skill mereka terhadap lowongan
+spesifik dan memberi mereka ruang berlatih wawancara berbasis suara dengan AI, tanpa
+biaya mahal dan dalam bahasa Indonesia.
+
+### b. Pengguna Potensial & Kebutuhan Pengguna
+
+Pengguna potensial utamanya adalah mahasiswa tingkat akhir dan fresh graduate (0-2
+tahun) di Indonesia yang sedang bersiap untuk mendaftar kerja/magang, sedangkan
+pengguna sekundernya adalah admin/kurator tim untuk mengelola database lowongan.
+
+Untuk pengguna utama, kebutuhannya adalah:
+- Mengetahui skill gap mereka terhadap kebutuhan lowongan secara objektif
+- Sarana latihan wawancara yang realistis dan terjangkau serta memberikan feedback yang terstruktur
+- Cara memasukkan lowongan yang mereka temukan sendiri agar tetap bisa dianalisis
+
+Untuk pengguna sekunder, kebutuhannya adalah alat untuk mengelola dan menjaga
+kualitas database lowongan agar matching tetap relevan.
+
+### c. Use Case Diagram
+
+![Use Case Diagram Sistem Tempa](assets/use-case-diagram.png)
+
+### d. Functional Requirements
+
+| FR | Deskripsi |
+| :--- | :--- |
+| FR-1 | Pengguna dapat mendaftar dan login menggunakan email/password (dihashing) atau Google OAuth, serta tetap dalam sesi login menggunakan token JWT. |
+| FR-2 | Pengguna mengisi profil (nama, kampus, jurusan, semester, minat karier, target 6 bulan) yang akan dipakai sebagai konteks untuk matching lowongan dan referensi pertanyaan wawancara. |
+| FR-3 | Pengguna mengunggah CV dalam format PDF, lalu sistem mengekstrak skill, pengalaman, dan pendidikan menggunakan LLM; pengguna dapat mengoreksi hasil ekstraksi sebelum disimpan. |
+| FR-4 | Sistem menghitung skor kecocokan antara CV pengguna dan tiap lowongan (kombinasi embedding similarity dan overlap skill), lalu menampilkan skill yang sudah dikuasai, skill gap, dan rekomendasi cara menutup gap tersebut. |
+| FR-5 | Pengguna dapat menambahkan lowongan yang ditemukan secara mandiri (via tautan atau teks) untuk diekstrak dan diikutkan dalam perhitungan matching. |
+| FR-6 | Pengguna menjalani sesi latihan wawancara suara (turn-based) sebanyak 8 pertanyaan per lowongan; pertanyaan dibacakan lewat Text-To-Speech (TTS), jawaban direkam dan ditranskrip lewat Speech-To-Text (STT) untuk kemudian dinilai. |
+| FR-7 | Sistem menilai tiap jawaban wawancara berdasarkan rubrik 5 aspek dan menghasilkan report card berisi skor keseluruhan, feedback per pertanyaan, kekuatan, dan fokus perbaikan. |
+| FR-8 | Sistem menyimpan riwayat sesi latihan per pengguna dan menampilkan perkembangan skor antar sesi untuk posisi yang sama. |
+| FR-9 | Admin dapat menambah, mengedit, atau menonaktifkan lowongan kurasi, serta meninjau lowongan input pengguna yang dilaporkan bermasalah. |
+
+### e. Entity Relationship Diagram
+
+![Entity Relationship Diagram Tempa](assets/erd.png)
+
+### f. Low-Fidelity Wireframe
+
+![Wireframe Landing Page](assets/wireframe-landing.png)
+
+![Wireframe Login & Upload CV](assets/wireframe-login-upload.png)
+
+![Wireframe Dashboard Lowongan & Persiapan Wawancara](assets/wireframe-dashboard.png)
+
+![Wireframe Sesi Gladi & Report Card](assets/wireframe-gladi-report.png)
+
+### g. Gantt Chart Pengerjaan Proyek (12 Minggu)
+
+| Kegiatan | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 |
+| :--- | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: | :-: |
+| Brainstorming & riset | X | X | | | | | | | | | | |
+| PRD, Lean Canvas, kompetitor | | X | X | | | | | | | | | |
+| Use case dan arsitektur | | X | X | X | | | | | | | | |
+| Wireframe & prototype | | | X | X | X | | | | | | | |
+| Repo, CI/CD, skeleton Azure (M1) | | | X | X | X | | | | | | | |
+| Auth + onboarding + profil | | | | | X | X | | | | | | |
+| Upload CV + parsing LLM (M2) | | | | | | X | X | | | | | |
+| Job matching + skill gap | | | | | | | X | X | | | | |
+| Input lowongan mandiri (M3) | | | | | | | | X | X | | | |
+| Latihan wawancara TTS/STT | | | | | | | | X | X | X | | |
+| Report card + tracking (M4) | | | | | | | | | | X | X | |
+| Panel kurasi, hardening, docs | | | | | | | | | | X | X | X |
+| UAT 10 mhs + gladi demo (M5) | | | | | | | | | | | X | X |
+
+---
