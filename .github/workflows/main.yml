@@ -34,20 +34,12 @@ jobs:
   pages:
     name: Build GitHub Pages
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Setup Ruby
-        uses: ruby/setup-ruby@v1
+      - name: Build with GitHub Pages Jekyll
+        uses: actions/jekyll-build-pages@v1
         with:
-          ruby-version: "3.2"
-
-      - name: Build Jekyll from docs/
-        run: |
-          gem install bundler jekyll
-          jekyll build --source docs --destination _site
-          test -f _site/index.html
-          echo "GitHub Pages build succeeded."
+          source: ./docs
+          destination: ./_site
