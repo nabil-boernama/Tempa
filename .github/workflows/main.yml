@@ -1,0 +1,53 @@
+name: CI Tempa
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  check-docs:
+    name: Validate project docs
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Check required files
+        run: |
+          set -e
+          echo "Checking required documentation files..."
+          test -f README.md
+          test -f docs/index.md
+          test -f docs/_config.yml
+          echo "All required files are present."
+
+      - name: Check team identities in README
+        run: |
+          set -e
+          grep -q "24/545465/TK/60670" README.md
+          grep -q "24/545232/TK/60628" README.md
+          grep -q "24/545600/TK/60708" README.md
+          echo "Team identities found."
+
+  pages:
+    name: Build GitHub Pages
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "3.2"
+
+      - name: Build Jekyll from docs/
+        run: |
+          gem install bundler jekyll
+          jekyll build --source docs --destination _site
+          test -f _site/index.html
+          echo "GitHub Pages build succeeded."
