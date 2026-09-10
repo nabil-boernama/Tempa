@@ -140,11 +140,17 @@ kualitas database lowongan agar matching tetap relevan.
 
 ![Wireframe Landing Page](assets/wireframe-landing.png)
 
-![Wireframe Login & Upload CV](assets/wireframe-login-upload.png)
+![Wireframe Login](assets/wireframe-login.png)
 
-![Wireframe Dashboard Lowongan & Persiapan Wawancara](assets/wireframe-dashboard.png)
+![Wireframe Upload CV](assets/wireframe-upload.png)
 
-![Wireframe Sesi Gladi & Report Card](assets/wireframe-gladi-report.png)
+![Wireframe Dashboard](assets/wireframe-dashboard.png)
+
+![Wireframe Persiapan Gladi](assets/wireframe-gladi.png)
+
+![Wireframe Gladi Wawancara](assets/wireframe-wawancara.png)
+
+![Wireframe Report Card](assets/wireframe-report.png)
 
 ### g. Gantt Chart Pengerjaan Proyek (12 Minggu)
 
