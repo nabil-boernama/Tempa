@@ -1,0 +1,9 @@
+# OS / editor
+.DS_Store
+.idea/
+.vscode/
+
+# Secrets (template .env.example tetap di-commit)
+.env
+.env.*
+!.env.example
